@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>ExportToDB --PathList PathList.txt --DirectoryFilters "2021-02-11%2a,20210211%2a" --FileFilters "%2a210211%2a,2021-02-11%2a,20210211%2a" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable</StartArguments>
+  </PropertyGroup>
+</Project>

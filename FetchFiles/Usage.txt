@@ -1,0 +1,2 @@
+﻿ExportToDB --PathList PathList.txt --DirectoryFilters "2021-02-11*,20210211*" --FileFilters "*210211*,2021-02-11*,20210211*" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable
+ExportToCSV --PathList PathList.txt --CsvFile "output.csv" --DirectoryFilters "2021-02-11*,20210211*" --FileFilters "*210211*,2021-02-11*,20210211*"

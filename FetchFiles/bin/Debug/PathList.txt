@@ -1,0 +1,6 @@
+﻿\\hmsismsSDAprd.id.pmi\ftp_SDA_prd$\3.PRD\Import\PDF\Invoice
+\\hmsismsSDAprd.id.pmi\ftp_SDA_prd$\3.PRD\Import\PDF\CreditNote
+\\hmsismsSDAprd.id.pmi\ftp_SDA_prd$\3.PRD\Import\PDF\CreditNoteReward
+\\hmsismsSDAprd.id.pmi\ftp_SDA_prd$\3.PRD\Import\PDF\RNR
+\\hmsismsSDAprd.id.pmi\ftp_SDA_prd$\3.PRD\Import\PDF\PaymentCollection
+\\hmsismsSDAprd.id.pmi\ftp_SDA_prd$\3.PRD\Import\PDF\DN
