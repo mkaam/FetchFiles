@@ -23,3 +23,4 @@ C:\BitBucket\FetchFiles\FetchFiles\bin\Release\System.ValueTuple.xml
 C:\BitBucket\FetchFiles\FetchFiles\obj\Release\FetchFiles.csproj.CopyComplete
 C:\BitBucket\FetchFiles\FetchFiles\obj\Release\FetchFiles.exe
 C:\BitBucket\FetchFiles\FetchFiles\obj\Release\FetchFiles.pdb
+C:\BitBucket\FetchFiles\FetchFiles\obj\Release\FetchFiles.csprojAssemblyReference.cache

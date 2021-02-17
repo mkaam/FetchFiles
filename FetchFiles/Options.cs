@@ -22,9 +22,11 @@ namespace FetchFiles
         public virtual string TableName { get; set; }
 
         public virtual string PathList { get; set; }
-        
+
+        [Option(Default = "*", Separator = ',', HelpText = "Input filter for directory to be processed. eg: 2020-12-24, 2020-12-21 \n or we can use date function. eg: {yyyy-MM-dd},{yyyyMMdd},{yyMMdd},{yyyy-MM-dd HH:mm:ss} \n {yyyy-MM-dd[-1]},{yyyyMMdd[-1]},{yyMMdd[1]},{yyyy-MM-dd[1] HH:mm:ss}")]
         public virtual IEnumerable<string> DirectoryFilters { get; set; }
 
+        [Option(Default = "*", Separator = ',', HelpText = "Input filter for files to be processed. eg: 2020-12-24, 2020-12-21 \n or we can use date function. eg: {yyyy-MM-dd},{yyyyMMdd},{yyMMdd},{yyyy-MM-dd HH:mm:ss} \n {yyyy-MM-dd[-1]},{yyyyMMdd[-1]},{yyMMdd[1]},{yyyy-MM-dd[1] HH:mm:ss}")]
         public virtual IEnumerable<string> FileFilters { get; set; }
 
         public virtual bool TruncateTable { get; set; }
@@ -37,10 +39,10 @@ namespace FetchFiles
         [Option(Required = true, HelpText = "Define pathlist from text file. Eg: C:\\PathList.txt")]
         public override string PathList { get; set; }
 
-        [Option(Default = "*", Separator = ',', HelpText = "Input filter for directory to be processed. eg: 2020-12-24, 2020-12-21")]
+        
         public override IEnumerable<string> DirectoryFilters { get; set; }
 
-        [Option(Default = "*", Separator = ',', HelpText = "Input filter for files to be processed. eg: 2020-12-24, 2020-12-21")]
+        
         public override IEnumerable<string> FileFilters { get; set; }
 
         [Option(Required = true, HelpText = "Server name for export list")]
@@ -67,11 +69,9 @@ namespace FetchFiles
     {
         [Option(Required = true, HelpText = "Define pathlist from text file. Eg: C:\\PathList.txt")]
         public override string PathList { get; set; }
-
-        [Option(Default = "*", Separator = ',', HelpText = "Input filter for directory to be processed. eg: 2020-12-24, 2020-12-21")]
+        
         public override IEnumerable<string> DirectoryFilters { get; set; }
-
-        [Option(Default = "*", Separator = ',', HelpText = "Input filter for files to be processed. eg: 2020-12-24, 2020-12-21")]
+        
         public override IEnumerable<string> FileFilters { get; set; }
 
         [Option(Required = true, HelpText = "FullPath CSV File Name for export File List. Eg: C:\\FileList.csv")]

@@ -1,2 +1,6 @@
 ﻿ExportToDB --PathList PathList.txt --DirectoryFilters "2021-02-11*,20210211*" --FileFilters "*210211*,2021-02-11*,20210211*" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable
 ExportToCSV --PathList PathList.txt --CsvFile "output.csv" --DirectoryFilters "2021-02-11*,20210211*" --FileFilters "*210211*,2021-02-11*,20210211*"
+
+ExportToDB --PathList PathList.txt --DirectoryFilters "{yyyy-MM-dd}*,{yyyyMMdd}*" --FileFilters "*{yyMMdd}*,{yyyy-MM-dd}*,{yyyyMMdd}*" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable
+
+E:\Interface\Sampoerna\FetchFiles\FetchFiles.exe ExportToDB --PathList E:\interface\SAMPOERNA\FetchFiles\PathPDFNational.txt --DirectoryFilters "{yyyy-MM-dd}*,{yyyyMMdd}*,{yyyy-MM-dd[-1]}*,{yyyyMMdd[-1]}*" --FileFilters "*{yyMMdd}*,{yyyy-MM-dd}*,{yyyyMMdd}*,*{yyMMdd[-1]}*,{yyyy-MM-dd[-1]}*,{yyyyMMdd[-1]}*" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable

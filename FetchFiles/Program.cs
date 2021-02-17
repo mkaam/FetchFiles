@@ -12,6 +12,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FetchFiles
@@ -115,11 +116,73 @@ namespace FetchFiles
             NLog.LogManager.Configuration = config;
         }
 
+        static void OptionConfigure(Options opts)
+        {
+            char[] chars = new char[] { '{', '}' };
+            char[] chars2 = new char[] { '[', ']' };
+
+            var FileFilterFunc = opts.FileFilters.Where(x => x.Contains("{"))
+                .Select(x => chars.Aggregate(x, (c1, c2) => c1.Replace(c2, '\n')) );
+
+            if (FileFilterFunc.Count() > 0)
+            {
+                opts.FileFilters = Enumerable.Empty<string>();
+                List<string> tmp_FileFilters = new List<string>();
+
+                //{yyyy-MM-dd},{yyyyMMdd},{yyMMdd},{yyyy-MM-dd HH:mm:ss}
+                foreach (var func in FileFilterFunc)
+                {                    
+                    if (func.Contains("["))
+                    {
+                        string dayextract = func.Split('[', ']')[1];
+                        string funcstr = func.Replace("[", "").Replace("]", "").Replace(dayextract,"");
+                        string FilterStr = DateTime.Now.AddDays(double.Parse(dayextract)).ToString(funcstr).Replace("\n", "");
+                        tmp_FileFilters.Add(FilterStr);
+                    }
+                    else 
+                        tmp_FileFilters.Add(DateTime.Now.ToString(func).Replace("\n",""));                    
+
+                }
+
+                opts.FileFilters = opts.FileFilters.Concat(tmp_FileFilters);
+            }
+
+
+            var DirFilterFunc = opts.DirectoryFilters.Where(x => x.Contains("{"))
+                .Select(x => chars.Aggregate(x, (c1, c2) => c1.Replace(c2, '\n')));
+
+            if (DirFilterFunc.Count() > 0)
+            {
+                opts.DirectoryFilters = Enumerable.Empty<string>();
+                List<string> tmp_DirFilters = new List<string>();
+
+                //{yyyy-MM-dd},{yyyyMMdd},{yyMMdd},{yyyy-MM-dd HH:mm:ss}
+                foreach (var func in DirFilterFunc)
+                {
+                    if (func.Contains("["))
+                    {
+                        string dayextract = func.Split('[', ']')[1];
+                        string funcstr = func.Replace("[", "").Replace("]", "").Replace(dayextract, "");
+                        string FilterStr = DateTime.Now.AddDays(double.Parse(dayextract)).ToString(funcstr).Replace("\n", "");
+                        tmp_DirFilters.Add(FilterStr);
+                    }
+                    else
+                        tmp_DirFilters.Add(DateTime.Now.ToString(func).Replace("\n", ""));
+
+                    //tmp_DirFilters.Add(DateTime.Now.ToString(func).Replace("\n",""));
+                }
+
+                opts.DirectoryFilters = opts.DirectoryFilters.Concat(tmp_DirFilters);
+            }
+
+        }
+
         static int RunExportToDB(Options opts)
         {
             var exitCode = 0;
 
             LoggerConfigure(opts);
+            OptionConfigure(opts);
 
             _watch = new Stopwatch();
             _watch.Start();
@@ -164,7 +227,7 @@ namespace FetchFiles
                 {
                     string QueryInsert;
 
-                    using (StreamReader sr = new StreamReader("QueryInsert.sql"))
+                    using (StreamReader sr = new StreamReader(Path.Combine(RootPath,"QueryInsert.sql")))
                     {
                         QueryInsert = sr.ReadToEnd();
                     }
@@ -183,7 +246,7 @@ namespace FetchFiles
                                     using (SqlCommand cmd = new SqlCommand())
                                     {
                                         cmd.Connection = conn;
-                                        cmd.CommandText = $"TRUNCATE TABLE {opts.TableName}";
+                                        cmd.CommandText = $"IF OBJECT_ID('{opts.TableName}') IS NULL CREATE TABLE {opts.TableName} ([FileName] varchar(max)) ELSE TRUNCATE TABLE {opts.TableName}";
                                         logger.Debug(cmd.CommandText);
                                         cmd.ExecuteNonQuery();
                                     }
@@ -245,6 +308,8 @@ namespace FetchFiles
             var exitCode = 0;
 
             LoggerConfigure(opts);
+            OptionConfigure(opts);
+
 
             _watch = new Stopwatch();
             _watch.Start();
