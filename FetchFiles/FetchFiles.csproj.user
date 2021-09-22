@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>ExportToDB --PathList E:\interface\SAMPOERNA\FetchFiles\PathPDFNational.txt --DirectoryFilters "{yyyy-MM-dd}%2a,{yyyyMMdd}%2a,{yyyy-MM-dd[-1]}%2a,{yyyyMMdd[-1]}%2a" --FileFilters "%2a{yyMMdd}%2a,{yyyy-MM-dd}%2a,{yyyyMMdd}%2a,%2a{yyMMdd[-1]}%2a,{yyyy-MM-dd[-1]}%2a,{yyyyMMdd[-1]}%2a" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable</StartArguments>
+    <StartArguments>ExportToDB --LogFile E:\SSISFiles\PDFForTA\Logs\FetchFiles.csv --PathList E:\ssisfiles\PDFForTA\Config\PathListTest.txt --DirectoryFilters "{yyyy-MM-dd}%2a,{yyyyMMdd}%2a,{yyyy-MM-dd[-1]}%2a,{yyyyMMdd[-1]}%2a,{yyyy-MM-dd[1]}%2a,{yyyyMMdd[1]}%2a" --FileFilters "%2a{yyMMdd}%2a,{yyyy-MM-dd}%2a,{yyyyMMdd}%2a,%2a{yyMMdd[-1]}%2a,{yyyy-MM-dd[-1]}%2a,{yyyyMMdd[-1]}%2a,%2a{yyMMdd[1]}%2a,{yyyy-MM-dd[1]}%2a,{yyyyMMdd[1]}%2a" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFTerritory_Files" --TruncateTable</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <StartArguments>ExportToDB --LogFile E:\SSISFiles\AutoReconcileOOT\Logs\FetchFiles.csv --PathList E:\SSISFiles\AutoReconcileOOT\Config\PathList.txt --DirectoryFilters %2a --FileFilters %2a.csv --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_AutoReconOOT_Files" --TruncateTable</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <StartArguments>ExportToDB --LogFile E:\SSISFiles\PDFForVendor\Logs\FetchFiles.csv --PathList E:\ssisfiles\PDFForVendor\Config\PathListJKTPRD.txt --DirectoryFilters "{yyyy-MM-dd}%2a,{yyyyMMdd}%2a,{yyyy-MM-dd[-1]}%2a,{yyyyMMdd[-1]}%2a,{yyyy-MM-dd[1]}%2a,{yyyyMMdd[1]}%2a" --FileFilters "%2a{yyMMdd}%2a,{yyyy-MM-dd}%2a,{yyyyMMdd}%2a,%2a{yyMMdd[-1]}%2a,{yyyy-MM-dd[-1]}%2a,{yyyyMMdd[-1]}%2a,%2a{yyMMdd[1]}%2a,{yyyy-MM-dd[1]}%2a,{yyyyMMdd[1]}%2a" --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_PDFVendor_Files" --TruncateTable</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartArguments>ExportToDB --LogFile E:\SSISFiles\AutoReconcileOOT\Logs\FetchFiles.csv --PathList E:\SSISFiles\AutoReconcileOOT\Config\PathList.txt --DirectoryFilters %2a --FileFilters %2a.csv --ServerName "PMIIDSUBDEV42\DEV2012" --DBName Users --TableName "temp_AutoReconOOT_Files" --TruncateTable</StartArguments>
   </PropertyGroup>
 </Project>
