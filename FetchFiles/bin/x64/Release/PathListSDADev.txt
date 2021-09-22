@@ -1,0 +1,6 @@
+﻿\\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_SDA_prd$\3.PRD\Import\PDF\Invoice
+\\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_SDA_prd$\3.PRD\Import\PDF\CreditNote
+\\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_SDA_prd$\3.PRD\Import\PDF\CreditNoteReward
+\\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_SDA_prd$\3.PRD\Import\PDF\RNR
+\\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_SDA_prd$\3.PRD\Import\PDF\PaymentCollection
+\\PMIIDSUBDEV38\iSMSMirrorDirectory$\ftp_SDA_prd$\3.PRD\Import\PDF\DN

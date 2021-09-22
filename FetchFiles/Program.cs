@@ -4,6 +4,7 @@ using CsvHelper.Configuration;
 using NLog;
 using NLog.Layouts;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -191,6 +192,12 @@ namespace FetchFiles
             IEnumerable<string> PathListEnum = Enumerable.Empty<string>();  
 
             PathListEnum = GetPathList(opts.PathList);
+            SearchOption searchOption = SearchOption.AllDirectories;
+
+            if (opts.SearchTopDirOnly)
+            {
+                searchOption = SearchOption.TopDirectoryOnly;
+            }            
 
             if (PathListEnum.Count() <= 0)
             {
@@ -202,14 +209,26 @@ namespace FetchFiles
                 {
                     try
                     {
+
+
                         IEnumerable<string> tmp_FileList = Enumerable.Empty<string>();
                         IEnumerable<string> tmp_DirList = Enumerable.Empty<string>();
 
-                        tmp_DirList = GetDirs(path, opts.DirectoryFilters.ToArray());
-                        foreach (string tmp_dir in tmp_DirList) logger.Debug($"Directory found within criteria : {tmp_dir}");
+                        if (opts.DirectoryFilters.Contains("*"))
+                        {
+                            tmp_FileList = GetFiles(path, opts.FileFilters.ToArray(), searchOption);
+                            foreach (string tmp_file in tmp_FileList) logger.Debug($"File found within criteria : {tmp_file}");
+                        }
+                        else
+                        {
+                            tmp_DirList = GetDirs(path, opts.DirectoryFilters.ToArray());
+                            foreach (string tmp_dir in tmp_DirList) logger.Debug($"Directory found within criteria : {tmp_dir}");
 
-                        tmp_FileList = GetFiles(tmp_DirList, opts.FileFilters.ToArray());
-                        foreach (string tmp_file in tmp_FileList) logger.Debug($"File found within criteria : {tmp_file}");
+                            tmp_FileList = GetFiles(tmp_DirList, opts.FileFilters.ToArray(), searchOption);
+                            foreach (string tmp_file in tmp_FileList) logger.Debug($"File found within criteria : {tmp_file}");
+                        }
+
+
 
                         if (tmp_FileList.Count() > 0) FileList = FileList.Concat(tmp_FileList);
                     }
@@ -232,7 +251,7 @@ namespace FetchFiles
                         QueryInsert = sr.ReadToEnd();
                     }
 
-                    string ConnectionString = $"Data Source={opts.ServerName};Initial Catalog={opts.DBName};Integrated Security=True;Connection Timeout=0;";
+                    string ConnectionString = $"Data Source={opts.ServerName};Initial Catalog={opts.DBName};Integrated Security=True;Connection Timeout=60;";
 
                     try
                     {
@@ -401,7 +420,7 @@ namespace FetchFiles
             {
                 searchPatterns = new string[] { "*" };
             }
-
+            
             return searchPatterns.AsParallel()
                    .SelectMany(searchPattern =>
                           Directory.EnumerateFiles(path, searchPattern, searchOption));
@@ -412,16 +431,20 @@ namespace FetchFiles
                     string[] searchPatterns,
                     SearchOption searchOption = SearchOption.AllDirectories)
         {
+            //var messages = new ConcurrentBag<string>();
+
             IEnumerable<string> retval = Enumerable.Empty<string>();
-            //foreach (string path in paths)
+
+            return paths.AsParallel()
+                .SelectMany(path =>
+                    GetFiles(path, searchPatterns, searchOption));
+
+            //foreach (var path in paths)
             //{
             //    retval = (retval ?? Enumerable.Empty<string>()).Concat(GetFiles(path, searchPatterns, searchOption) ?? Enumerable.Empty<string>());
             //}
-            Parallel.ForEach(paths, path =>
-            {
-                retval = (retval ?? Enumerable.Empty<string>()).Concat(GetFiles(path, searchPatterns, searchOption) ?? Enumerable.Empty<string>());
-            });
-            return retval;
+            
+            //return retval;
 
         }
 

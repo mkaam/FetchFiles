@@ -31,6 +31,8 @@ namespace FetchFiles
 
         public virtual bool TruncateTable { get; set; }
 
+        public virtual bool SearchTopDirOnly { get; set; }
+
     }
 
     [Verb("ExportToDB", isDefault: true, HelpText = "Genearte file list by criteria and save to Database")]
@@ -62,6 +64,9 @@ namespace FetchFiles
 
         [Option(Default = false, HelpText = "Truncate destination table before insert")]
         public override bool TruncateTable { get; set; }
+
+        [Option(Default = false, HelpText = "Search Option Current Directory Only instead of Search within Sub Directory")]
+        public override bool SearchTopDirOnly { get; set; }
     }
 
     [Verb("ExportToCSV", HelpText = "Genearte file list by criteria and save to CSV File")]
